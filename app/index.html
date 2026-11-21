@@ -3,20 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Cover Snap</title>
+<title>Vice Cover Studio — GTA 6-style cover art maker</title>
 <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 <main class="app">
-  <section class="controls">
-    <h1>Cover Snap</h1>
-    <p>A photo and a caption, made into a square cover.</p>
-    <label>Photo <input id="photo" type="file" accept="image/*"></label>
-    <label>Caption <input id="caption" type="text" maxlength="40" value="Sunset Heist"></label>
-    <button id="export" type="button">Export PNG 1080 x 1080</button>
-    <p id="status" role="status"></p>
+  <section class="controls" aria-label="Cover controls">
+    <header class="brand">
+      <h1>VICE COVER<br>STUDIO</h1>
+      <p class="tagline">GTA 6-style poster art from your photos. Offline — nothing leaves this machine.</p>
+    </header>
+
+    <section class="group">
+      <h2>1 · Photos</h2>
+      <label class="upload">Add photos (up to 4)
+        <input id="photo" type="file" accept="image/*">
+      </label>
+      <div id="slots" class="slots" aria-label="Loaded photos"></div>
+      <button id="loadSamples" type="button" class="ghost">Load the two sample photos</button>
+      <p class="hint">Click a photo slot to put it in the selected panel.</p>
+    </section>
+
+    <section class="group">
+      <h2>2 · Layout</h2>
+      <div id="layouts" class="picks" role="group" aria-label="Layout"></div>
+      <h2>3 · Colour grade</h2>
+      <div id="grades" class="picks" role="group" aria-label="Colour grade"></div>
+      <label class="check"><input id="grain" type="checkbox" checked> Film grain + vignette</label>
+    </section>
+
+    <section class="group">
+      <h2>4 · Caption</h2>
+      <label>Title
+        <input id="title" type="text" maxlength="40" value="Sunset Heist">
+      </label>
+      <label>Subtitle
+        <input id="subtitle" type="text" maxlength="60" value="Vice City · One last job">
+      </label>
+    </section>
+
+    <section class="group">
+      <h2>5 · Selected panel</h2>
+      <p id="panelLabel" class="panel-label">Panel 1 of 5</p>
+      <div id="panelPhotos" class="picks" aria-label="Photo for selected panel"></div>
+      <label>Zoom
+        <input id="zoom" type="range" min="100" max="300" value="100">
+      </label>
+      <p class="hint">Click a panel to select it. Drag inside it to crop, scroll to zoom.</p>
+      <div class="row">
+        <button id="fillPanels" type="button" class="ghost">Fill panels</button>
+        <button id="shufflePhotos" type="button" class="ghost">Shuffle photos</button>
+      </div>
+    </section>
+
+    <section class="group">
+      <h2>6 · Export</h2>
+      <div id="sizes" class="picks" role="group" aria-label="Export size"></div>
+      <div class="row">
+        <button id="undo" type="button" class="ghost" disabled>Undo</button>
+        <button id="redo" type="button" class="ghost" disabled>Redo</button>
+      </div>
+      <button id="export" type="button" class="export">Export PNG</button>
+      <p id="status" role="status">Load a photo, pick a layout, export.</p>
+    </section>
   </section>
-  <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  <section class="stage" aria-label="Cover preview">
+    <canvas id="cover" width="1080" height="1080" aria-label="The cover"></canvas>
+  </section>
 </main>
 <script type="module" src="./src/main.js"></script>
 </body>
